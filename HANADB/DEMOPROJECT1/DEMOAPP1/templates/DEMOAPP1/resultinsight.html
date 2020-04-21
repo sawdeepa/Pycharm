@@ -1,0 +1,61 @@
+{% extends 'DEMOAPP1/base.html' %}
+{% block head %}
+<!DOCTYPE html>
+<html lang="en">
+<head class="header">
+    <meta charset="UTF-8">
+    <title>Insight</title>
+     {% load static %}
+<link rel="stylesheet" href="{% static 'DEMOAPP1\style.css' %}" >
+</head>
+<body class="jumbotron">
+ {% load static %}
+<div >
+
+    <br>
+        <div class="djangomodel">
+            {% if access_records %}
+            <table style="width:10%"  cellpadding="10px" border="2px"  class="table table-striped .table-bordered .table-dark">
+                <tread>
+                    <th>ID</th>
+                    <th>Domain</th>
+                    <th>Insight</th>
+                    <th>Query</th>
+                    <th>Recordcount</th>
+                    <th>LastRefreshedOn</th>
+                    <th>Details</th>
+                    <th>Refresh</th>
+                    <th>Graphs</th>
+                </tread>
+
+        </div>
+        {% for acc in access_records%}
+        <tr>
+            <form action="details/{{acc.id}}">
+            <td>{{acc.id}}</td>
+            <td>{{acc.Domain}}</td>
+            <td>{{acc.Insight}}</td>
+            <td>{{acc.Query}}</td>
+            <td>{{acc.Recordcount}}</td>
+            <td>{{acc.LastRefreshedOn}}</td>
+            <td><button  class="btn btn-dark" type="Details" value="Details">Details</button></td>
+            </form>
+            <form action="refresh/{{acc.id}}">
+                <td><button  class="btn btn-dark">Refresh</button></td></form>
+            <form action="graphs/{{acc.id}}">
+                <td><button  class="btn btn-dark">Visualization</button></td></form>
+            </tr>
+
+        </tr>
+        {%endfor%}
+        </table>
+
+        {% else %}
+            <p> NO DATA</p>
+        {% endif %}
+</ul>
+
+</div>
+</body>
+</html>
+{% endblock %}

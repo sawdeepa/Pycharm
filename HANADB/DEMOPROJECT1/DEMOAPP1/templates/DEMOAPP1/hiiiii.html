@@ -1,0 +1,29 @@
+{% extends 'DEMOAPP1/base.html' %}
+
+{% block head %}
+<!DOCTYPE html>
+<html lang="en">
+<head class="jumbotron">
+    <meta charset="UTF-8">
+    <title>HANADB</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'DEMOAPP1\style.css' %}" type="text/css">
+</head>
+<body class="jumbotron">
+
+<form action="submit2">
+<div class="jumbotron">
+<form >
+   <!-- {% csrf_token %} --->
+  SQL:
+    <br>
+    Enter your SQL:<input type="textarea"  name="SQL" size="100" height="100">
+    {{Query}}
+    <br>
+    <input class="btn btn-info" type="submit" value="Submit">
+</form>
+
+</div></form>
+</body>
+</html>
+{% endblock %}

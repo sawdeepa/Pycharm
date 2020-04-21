@@ -1,0 +1,27 @@
+{% extends 'DEMOAPP1/base.html' %}
+{% block head %}
+<!DOCTYPE html>
+<html lang="en">
+<head class="header">
+    {% load static %}
+</head>
+<body class="jumbotron">
+ {% load static %}
+<div >
+<form>
+  <b>SQLOUTPUT</b>:
+    <br>
+      <ul>
+      <table style="width:10%"  cellpadding="10px" border="2px"  class="table table-striped .table-bordered .table-dark" >
+  {% for name in Query %}
+          
+          <tr>  {% for n in name %}
+          <td>{{ n }}</td>
+  {% endfor %} </tr>{% endfor%}
+      </table>
+</ul>
+</form>
+</div></form>
+</body>
+</html>
+{% endblock %}
