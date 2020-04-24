@@ -1,0 +1,38 @@
+{% extends 'DEMOAPP1/base.html' %}
+{% block head %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <div>
+        {% load static %}</div>
+</head>
+<body style="position: relative;" >
+<h1>Bubble Chart</h1>
+
+ <div id="series_chart_div" style="width: 100% ; position: relative;height: 500px;">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawSeriesChart);
+ var arr=new Array([{{Query|safe}}]);
+    console.log(arr[0][0][1]);
+    console.log(typeof(arr[0][0][1]));
+
+    function drawSeriesChart() {
+
+      var data = google.visualization.arrayToDataTable(arr[0][0]);
+
+      var options = {
+        title: '{{Insight}}',
+        hAxis: {title: 'Life Expectancy Demo'},
+        vAxis: {title: 'Fertility Rate Demo'},
+        bubble: {textStyle: {fontSize: 11}}      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
+    </script>
+</div>
+</body>
+</html>
+{% endblock %}

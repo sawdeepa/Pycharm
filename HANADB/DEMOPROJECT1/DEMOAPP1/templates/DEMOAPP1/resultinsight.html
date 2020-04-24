@@ -2,16 +2,17 @@
 {% block head %}
 <!DOCTYPE html>
 <html lang="en">
-<head class="header">
+<head class="header" >
     <meta charset="UTF-8">
     <title>Insight</title>
-     {% load static %}
-<link rel="stylesheet" href="{% static 'DEMOAPP1\style.css' %}" >
+      {% load static %}
+    <link rel="stylesheet" href="{% static 'DEMOAPP1/style.css' %}" text="text/css">
 </head>
-<body class="jumbotron">
+{% endblock %}
+<body>
  {% load static %}
-<div >
-
+  {% block body %}
+<div style="padding:5% 5% 5% 5%">
     <br>
         <div class="djangomodel">
             {% if access_records %}
@@ -38,7 +39,7 @@
             <td>{{acc.Query}}</td>
             <td>{{acc.Recordcount}}</td>
             <td>{{acc.LastRefreshedOn}}</td>
-            <td><button  class="btn btn-dark" type="Details" value="Details">Details</button></td>
+            <td><button  class="btn btn-dark" type="Details" value="Details">Details Table</button></td>
             </form>
             <form action="refresh/{{acc.id}}">
                 <td><button  class="btn btn-dark">Refresh</button></td></form>
@@ -56,6 +57,13 @@
 </ul>
 
 </div>
+
+
 </body>
-</html>
 {% endblock %}
+<footer style="position: relative">
+    {% load static %}
+  {% block footer %}
+    {% endblock %}
+</footer>
+</html>

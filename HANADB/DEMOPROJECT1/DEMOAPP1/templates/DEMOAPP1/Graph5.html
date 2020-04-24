@@ -1,0 +1,54 @@
+{% extends 'DEMOAPP1/base.html' %}
+{% block head %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <div>
+        {% load static %}</div>
+<link rel="stylesheet" href="{% static 'DEMOAPP1\style.css' %}" >
+</head>
+<body style="position: relative;" >
+
+<br/>
+ <br/>
+  <br/>
+ <br/>
+ <div id="top_x_div" style="width: 100% ; position: relative; height: 400px;">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+      var arr=new Array([{{Query|safe}}]);
+    console.log(arr[0][0][1]);
+    console.log(typeof(arr[0][0][1]));
+        var data = new google.visualization.arrayToDataTable(arr[0][0]);
+
+        var options = {
+          title: '{{Insight}}',
+          width: 900,
+          legend: { position: 'none' },
+          chart: { title: '{{Insight}}',
+                   subtitle: ' ' },
+          bars: 'horizontal', // Required for Material Bar Charts.
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Numbers'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        chart.draw(data, options);
+      };
+    </script>
+
+    </div>
+</body>
+<br/>
+ <br/>
+
+</html>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import TableM
+import numpy as np
+from django.http import JsonResponse
 from django.db import connection, transaction
 from django.http import HttpResponse
 from rest_framework import viewsets
@@ -155,6 +157,10 @@ def graphs(request,id):
         QryTableM = TableM.objects.filter(pk=id).values('Query')
         for data in QryTableM:
             Q1 = data['Query']
+        QryTableM = TableM.objects.filter(pk=id).values('Insight')
+        for data in QryTableM:
+            QInsight = data['Insight']
+        Insight=QInsight
         Qry22 = Q1
         print(Qry22)
         conn = pyodbc.connect("Driver={SQL Server};"
@@ -168,8 +174,8 @@ def graphs(request,id):
         Qry = []
 
         cursor.execute(Qry22)
-        #names = list(map(lambda x: x[0], cursor.description))
-        #Qry.append(names)
+        names = list(map(lambda x: x[0], cursor.description))
+        Qry.append(names)
 
         for row in cursor.fetchall():
             l = []
@@ -177,7 +183,10 @@ def graphs(request,id):
                 l.append(row[i])
             Qry.append(l)
         print(Qry)
+        Qryarr=np.array(Qry)
+        print(type(Qryarr))
         conn.close()
-        return render(request,'DEMOAPP1/Graph.html', {'Query': Qry})
+        a ='Graph'+str(id)+'.html';
+        return render(request,'DEMOAPP1/'+a, {'Query': Qry,'Insight':Insight})
         #return render(request, 'DEMOAPP1/Graph.html', {'QueryInsight': QryInsight})
 

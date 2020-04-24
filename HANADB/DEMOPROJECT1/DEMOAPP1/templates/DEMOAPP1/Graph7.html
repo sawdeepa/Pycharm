@@ -1,0 +1,48 @@
+{% extends 'DEMOAPP1/base.html' %}
+{% block head %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <div>
+        {% load static %}</div>
+<link rel="stylesheet" href="{% static 'DEMOAPP1\style.css' %}" >
+</head>
+<body style="position: relative;">
+<h1>Bubble Chart</h1>
+
+ <div id="scatter_top_x" style="width: 100% ; position: relative;height: 500px;">
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['scatter']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart () {
+    var arr=new Array([{{Query|safe}}]);
+    console.log(arr[0][0][1]);
+    console.log(typeof(arr[0][0][1]));
+        var data = new google.visualization.arrayToDataTable(arr[0][0]);
+
+
+        var options = {
+          width: 800,
+          height: 500,
+          chart: {
+            title: '{{Insight}}',
+            subtitle: ''
+          },
+          axes: {
+            x: {
+              0: {side: 'top'}
+            }
+          }
+        };
+
+        var chart = new google.charts.Scatter(document.getElementById('scatter_top_x'));
+
+        chart.draw(data, google.charts.Scatter.convertOptions(options));
+      }
+          </script>
+</div>
+</body>
+</html>
+{% endblock %}
